@@ -18,18 +18,18 @@
             <section class="formulario">
                 <h2>Agregar animal</h2>
 
-                <form>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" placeholder="Ej. Alex">
+                <form action="{{ url_for('agregar') }}" method="POST">
+                    <input type="text" id="nombre" name="nombre"
+                        placeholder="Nombre del animal" required>
 
-                    <label for="especie">Especie:</label>
-                    <input type="text" id="especie" placeholder="Ej. León">
+                    <input type="text" id="especie" name="especie"
+                        placeholder="Especie" required>
 
-                    <label for="edad">Edad:</label>
-                    <input type="number" id="edad" placeholder="Ej. 10">
+                    <input type="number" id="edad" name="edad"
+                        placeholder="Edad" min="0" required>
 
-                    <label for="habitat">Hábitat:</label>
-                    <input type="text" id="habitat" placeholder="Ej. Zoológico">
+                    <input type="text" id="habitat" name="habitat"
+                        placeholder="Hábitat" required>
 
                     <button type="submit" class="btn-agregar">
                         Agregar animal
@@ -54,66 +54,36 @@
                     </thead>
 
                     <tbody>
+                        {% for animal in animales %}
                         <tr>
-                            <td>1</td>
-                            <td>Alex</td>
-                            <td>León</td>
-                            <td>10</td>
-                            <td>Zoológico</td>
+                            <td>{{ animal.id }}</td>
+                            <td>{{ animal.nombre }}</td>
+                            <td>{{ animal.especie }}</td>
+                            <td>{{ animal.edad }}</td>
+                            <td>{{ animal.habitat }}</td>
                             <td>
-                                <button class="btn-editar">Editar</button>
-                                <button class="btn-eliminar">Eliminar</button>
-                            </td>
-                        </tr>
+                                <a class="btn-editar"
+                                href="{{ url_for('editar', id=animal.id) }}">
+                                    Editar
+                                </a>
 
-                        <tr>
-                            <td>2</td>
-                            <td>Marty</td>
-                            <td>Cebra</td>
-                            <td>10</td>
-                            <td>Zoológico</td>
-                            <td>
-                                <button class="btn-editar">Editar</button>
-                                <button class="btn-eliminar">Eliminar</button>
+                                <form action="{{ url_for('eliminar', id=animal.id) }}"
+                                    method="POST"
+                                    style="display:inline"
+                                    onsubmit="return confirm('¿Eliminar este animal?')">
+                                    <button type="submit" class="btn-eliminar">
+                                        Eliminar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
-
+                        {% else %}
                         <tr>
-                            <td>3</td>
-                            <td>Melman</td>
-                            <td>Jirafa</td>
-                            <td>12</td>
-                            <td>Zoológico</td>
-                            <td>
-                                <button class="btn-editar">Editar</button>
-                                <button class="btn-eliminar">Eliminar</button>
-                            </td>
+                            <td colspan="6">No hay animales registrados.</td>
                         </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Gloria</td>
-                            <td>Hipopótamo</td>
-                            <td>11</td>
-                            <td>Zoológico</td>
-                            <td>
-                                <button class="btn-editar">Editar</button>
-                                <button class="btn-eliminar">Eliminar</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Skipper</td>
-                            <td>Pingüino</td>
-                            <td>8</td>
-                            <td>Antártida</td>
-                            <td>
-                                <button class="btn-editar">Editar</button>
-                                <button class="btn-eliminar">Eliminar</button>
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
+
                 </table>
             </section>
 

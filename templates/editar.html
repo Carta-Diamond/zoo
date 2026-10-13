@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar animal</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Editar animal</h1>
+
+        <form action="{{ url_for('editar', id=animal.id) }}"
+              method="POST">
+
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" name="nombre" type="text"
+                   value="{{ animal.nombre }}" required>
+
+            <label for="especie">Especie:</label>
+            <input id="especie" name="especie" type="text"
+                   value="{{ animal.especie }}" required>
+
+            <label for="edad">Edad:</label>
+            <input id="edad" name="edad" type="number"
+                   min="0" value="{{ animal.edad }}" required>
+
+            <label for="habitat">Hábitat:</label>
+            <input id="habitat" name="habitat" type="text"
+                   value="{{ animal.habitat }}" required>
+
+            <button type="submit" class="btn-agregar">
+                Guardar cambios
+            </button>
+
+            <a href="{{ url_for('index') }}">Cancelar</a>
+        </form>
+    </main>
+</body>
+</html>
