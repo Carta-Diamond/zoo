@@ -44,8 +44,11 @@ def agregar_animal(nombre, especie, edad, habitat):
         (nombre, especie, edad, habitat)
     )
     conexion.commit()
+    animal_id = cursor.lastrowid
+
     cursor.close()
     conexion.close()
+    return animal_id
 
 def obtener_animal(animal_id):
     conexion = conectar()
