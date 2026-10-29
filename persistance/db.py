@@ -1,12 +1,13 @@
+import os
 import mysql.connector
 
 def conectar():
     return mysql.connector.connect(
-        host="host.docker.internal",
-        port=9999,
-        user="usuario",
-        password="1234",
-        database="animales"
+        host=os.getenv("DB_HOST", "host.docker.internal"),
+        port=int(os.getenv("DB_PORT", "9999")),
+        user=os.getenv("DB_USER", "usuario"),
+        password=os.getenv("DB_PASSWORD", "1234"),
+        database=os.getenv("DB_NAME", "animales")
     )
 
 def crear_tabla():
